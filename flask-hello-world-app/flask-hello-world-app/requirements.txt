@@ -1,0 +1,9 @@
+flask
+databricks-sdk
+databricks-sql-connector
+pandas
+pyarrow
+PyPDF2
+pdfplumber
+openai
+groq
