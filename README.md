@@ -18,7 +18,7 @@ and guides users through structured grievance escalation via airlines, AirSewa, 
 <h2>🏗️ Architecture Diagram</h2>
 
 <p align="center">
-<img src="https://drive.google.com/file/d/1GkSTexP9RgAN-TeV2LKiIh1QV1gK2PMp/view?usp=sharing" width="700">
+<img src="https://drive.google.com/file/d/1b4xPlWRAXxnv4nQrkkp70k4GO_Xj6CcF/view?usp=sharing" width="700">
 </p>
 
 <hr>
