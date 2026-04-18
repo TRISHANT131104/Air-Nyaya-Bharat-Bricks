@@ -1,4 +1,4 @@
-Deployed URL: https://hello-world-7474654193956536.aws.databricksapps.com
+Deployed URL: https://hello-world-7474654193956536.aws.databricksapps.com \n
 Demo Video: https://drive.google.com/file/d/1ZIA4Le1c0wosxNgZYB_t_cbEHeazY__i/view?usp=drivesdk
 
 ## 🛫 Proactive Flight Monitoring & Entitlements
