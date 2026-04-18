@@ -1,36 +1,177 @@
-Deployed URL: https://hello-world-7474654193956536.aws.databricksapps.com 
+<h1 align="center">✈️ Air-Nyaya</h1>
 
+<p align="center">
+AI-powered flight disruption monitoring & passenger entitlement assistant based on DGCA CAR regulations.
+</p>
 
-Demo Video: https://drive.google.com/file/d/1ZIA4Le1c0wosxNgZYB_t_cbEHeazY__i/view?usp=drivesdk
+<hr>
 
-## 🛫 Proactive Flight Monitoring & Entitlements
+<h2>📌 What Air-Nyaya Does</h2>
 
-We don't just want to tell users their flight is delayed; we want to proactively tell them what they are owed when things go wrong. To do this, we built a background monitoring engine that keeps an eye on flight statuses and automatically calculates entitlement changes (like compensation, lounge access, or meal vouchers).
+<p>
+Air-Nyaya proactively monitors flight delays, determines passenger entitlements under DGCA regulations,
+and guides users through structured grievance escalation via airlines, AirSewa, and the National Consumer Helpline (NCH).
+</p>
 
-### 🛠️ How It Works Under the Hood
+<hr>
 
-To avoid hammering our API provider while still keeping data fresh, we implemented a smart-polling scheduler within `fetch_status.py`. Here is the step-by-step lifecycle of how we track delays:
+<h2>🏗️ Architecture Diagram</h2>
 
-* **The Data Source:** We use the [Aviationstack API](https://aviationstack.com/) (`api.aviationstack.com`) as our source of truth for real-time flight data.
-* **The Roster:** All tracked user flights are stored in our database, along with a `last_checked` timestamp.
-* **The Heartbeat (Scheduler):** Every single minute, our background scheduler wakes up and scans the database. 
-* **The Stale-Check:** It looks for any flights where the `last_checked` timestamp is older than **one hour**. 
-* **The Update:** For those "stale" flights, we ping Aviationstack for the latest status. If the flight is delayed, we update the delay time and current status in our database.
+<p align="center">
+<img src="https://drive.google.com/uc?export=view&id=1GkSTexP9RgAN-TeV2LKiIh1QV1gK2PMp" width="700">
+</p>
 
-### ⏱️ Why a One-Hour Polling Interval?
+<hr>
 
-You might wonder why our scheduler updates flight statuses hourly instead of every few minutes. In the airline industry, delay entitlements are almost exclusively triggered in hour-long increments (e.g., compensation or vouchers kick in after exactly a 2-hour or 3-hour delay). 
+<h2>⚙️ System Architecture Overview</h2>
 
-Because of this, hyper-frequent API calls are unnecessary. We check the status initially at the scheduled departure time, and then recheck only when a full hour has elapsed. In code, our threshold logic for re-pinging the API looks like this:
+<ul>
+<li><b>Bronze Layer:</b> Raw DGCA CAR regulatory rules ingestion</li>
+<li><b>Silver Layer:</b> Structured regulatory summaries and clause extraction</li>
+<li><b>Gold Layer:</b> Rule graph construction with entitlement parameters</li>
+<li><b>Classifier Engine:</b> Deterministic mapping of disruption scenarios to CAR clauses</li>
+<li><b>Query Parser:</b> Extracts grievance metadata from user input</li>
+<li><b>Decision Engine:</b> Identifies compensation eligibility</li>
+<li><b>Action Engine:</b> Generates escalation workflow steps</li>
+<li><b>Flight Monitor:</b> Tracks delay thresholds using Aviationstack API</li>
+<li><b>Notification Engine:</b> Pushes entitlement update alerts</li>
+</ul>
 
-`min(curr_time - last_checked, curr_time - initial_departure_time) >= 1 hour`
+<hr>
 
-### 🔔 Smart Notifications & Entitlements
+<h2>🚀 Deployed Prototype</h2>
 
-We aren't just updating timestamps; we are looking for *impact*. 
+<p>
+<a href="https://hello-world-7474654193956536.aws.databricksapps.com">
+Open Air-Nyaya App
+</a>
+</p>
 
-Whenever a delay is logged or updated, the system evaluates if this new delay crosses a threshold that unlocks new **entitlements** for the user. If an entitlement changes because of a delay, our backend immediately pushes a notification payload. 
+<hr>
 
-### 🚀 What's Next (Roadmap)
+<h2>🎬 Demo Video</h2>
 
-* **Native In-App Notifications:** Right now, the backend successfully identifies the entitlement change and triggers the notification push. Our next major step is building out the native in-app UI/UX to beautifully display these live notifications directly to the user while they have the app open.
+<p>
+<a href="https://drive.google.com/file/d/1ZIA4Le1c0wosxNgZYB_t_cbEHeazY__i/view?usp=drivesdk">
+Watch Demo (2 minutes)
+</a>
+</p>
+
+<hr>
+
+<h2>📡 Proactive Flight Monitoring Engine</h2>
+
+<p>
+Air-Nyaya includes a background scheduler that checks flight status every hour and recalculates
+entitlements whenever disruption thresholds are crossed.
+</p>
+
+<pre>
+Scheduler Trigger Condition:
+
+min(
+    current_time − last_checked_time,
+    current_time − departure_time
+) ≥ 1 hour
+</pre>
+
+<p>
+If eligibility changes, the system automatically triggers notifications for:
+</p>
+
+<ul>
+<li>Meal vouchers</li>
+<li>Lounge access</li>
+<li>Alternate routing</li>
+<li>Refund eligibility</li>
+<li>Monetary compensation</li>
+</ul>
+
+<hr>
+
+<h2>🧠 Databricks Technologies Used</h2>
+
+<ul>
+<li>Databricks Apps (deployment)</li>
+<li>Databricks Notebooks</li>
+<li>Delta Tables (flight tracking roster)</li>
+<li>Scheduled Jobs (polling scheduler)</li>
+<li>MLflow (experiment tracking)</li>
+<li>Unity Catalog (rule governance)</li>
+</ul>
+
+<hr>
+
+<h2>🧪 Open-Source Stack</h2>
+
+<ul>
+<li>Python</li>
+<li>FastAPI</li>
+<li>Pandas</li>
+<li>Aviationstack API</li>
+<li>Rule-based entitlement engine</li>
+</ul>
+
+<hr>
+
+<h2>▶️ How to Run Locally</h2>
+
+<pre>
+git clone https://github.com/&lt;your-username&gt;/Air-Nyaya.git
+cd Air-Nyaya
+pip install -r requirements.txt
+python app.py
+python fetch_status.py
+streamlit run main.py
+</pre>
+
+<hr>
+
+<h2>🧭 Demo Steps</h2>
+
+<ol>
+<li>Open deployed application</li>
+<li>Enter flight number</li>
+<li>Select disruption scenario</li>
+<li>Submit grievance query</li>
+<li>View entitlement classification</li>
+<li>Trigger escalation workflow</li>
+<li>Observe alternate route suggestions</li>
+<li>Simulate delay update → entitlement refresh</li>
+</ol>
+
+<hr>
+
+<h2>🏛️ Regulatory Intelligence Backbone</h2>
+
+<p>
+Air-Nyaya converts DGCA CAR Section 3 Series M Part IV into executable rule graphs that enable
+automatic entitlement detection and structured grievance escalation guidance.
+</p>
+
+<hr>
+
+<h2>📁 Repository Structure</h2>
+
+<pre>
+Air-Nyaya/
+│
+├── app.py
+├── fetch_status.py
+├── rule_engine/
+├── scheduler/
+├── grievance_classifier/
+├── datasets/
+├── notebooks/
+└── README.md
+</pre>
+
+<hr>
+
+<h2>📝 Project Summary (Submission Description)</h2>
+
+<p>
+Air-Nyaya is an AI-powered passenger rights assistant that monitors flights in real time,
+detects disruptions, computes DGCA CAR entitlements automatically, and guides users through
+structured grievance escalation via airlines, AirSewa, and the National Consumer Helpline.
+</p>
