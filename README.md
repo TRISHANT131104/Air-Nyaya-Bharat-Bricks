@@ -1,3 +1,6 @@
+Deployed URL: https://hello-world-7474654193956536.aws.databricksapps.com
+Demo Video: https://drive.google.com/file/d/1ZIA4Le1c0wosxNgZYB_t_cbEHeazY__i/view?usp=drivesdk
+
 ## 🛫 Proactive Flight Monitoring & Entitlements
 
 We don't just want to tell users their flight is delayed; we want to proactively tell them what they are owed when things go wrong. To do this, we built a background monitoring engine that keeps an eye on flight statuses and automatically calculates entitlement changes (like compensation, lounge access, or meal vouchers).
